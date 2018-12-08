@@ -69,7 +69,7 @@ CodeIn = getChar(); // Get the second identifier
 char getChar()// Get a character from the serial buffer
 {
   while(Serial.available() == 0);// wait for data
-  return((char)Serial.read());// Thanks Doug
+  return((char)Serial.read());
 }// end of getchar void. 
 
 ```
