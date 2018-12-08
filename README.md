@@ -34,17 +34,17 @@ void loop() {
  if (digitalRead(10) == LOW){Serial.println ("C01");} //sets gear handle up
  if (digitalRead(11) == LOW){Serial.println ("C02");} //sets gear handle down
         
-        if (digitalRead(7) == HIGH){Serial.println ("C441");} //Taxi light on
-        else {Serial.println ("C440");}//Taxi light off
+ if (digitalRead(7) == HIGH){Serial.println ("C441");} //Taxi light on
+ else {Serial.println ("C440");}//Taxi light off
         
-        if (digitalRead(8) == HIGH){Serial.println ("C431");}//Landing light on
-        else {Serial.println ("C430");}//Landing light off
+ if (digitalRead(8) == HIGH){Serial.println ("C431");}//Landing light on
+ else {Serial.println ("C430");}//Landing light off
         
-        if (digitalRead(9) == HIGH){Serial.println ("A431");}//Avionics on
-        else {Serial.println ("A430");}//Landing light off
+ if (digitalRead(9) == HIGH){Serial.println ("A431");}//Avionics on
+ else {Serial.println ("A430");}//Landing light off
         
-        if (digitalRead(6) == LOW){Serial.println ("E18");}//Master on
-        else {Serial.println ("E17");}//Master off
+ if (digitalRead(6) == LOW){Serial.println ("E18");}//Master on
+ else {Serial.println ("E17");}//Master off
   
  if (Serial.available())
  {//checks the serial read buffer
