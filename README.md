@@ -6,7 +6,7 @@ I use an arduino undo to communicate via serial com port to a software "Link2fs"
 
 ## Schematics
 
-[Schematics](Switches panel wiring.PNG)
+![Schematics](/Switches panel wiring.PNG)
 
 ## Code
 
