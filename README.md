@@ -1,37 +1,73 @@
-## Welcome to GitHub Pages
+#Switches panel for flight simulation
+Proof of concept to be developped, master, avionics, lights and landing gear switches with rgb led for landing gear position.
 
-You can use the [editor on GitHub](https://github.com/maxime-a/Switches-panel-for-flight-simulation/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+I use an arduino undo to communicate via serial com port to a software "Link2fs" which allow me to extract data from microsoft flight simulator and send inputs to the simulator. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+## Schematics
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Code
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
+int CodeIn;
+String gearSimple;
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+void setup() {
+  pinMode(2, OUTPUT); // gear nose LED
+  pinMode(5, OUTPUT); // gear nose in transition LED
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/maxime-a/Switches-panel-for-flight-simulation/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+  pinMode(6, INPUT_PULLUP);
+  pinMode(7, INPUT_PULLUP);
+  pinMode(8, INPUT_PULLUP);
+  pinMode(9, INPUT_PULLUP);
+  pinMode(10, INPUT_PULLUP);
+  pinMode(11, INPUT_PULLUP);
 
-### Support or Contact
+  Serial.begin(115200);
+}
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+void loop() {
+
+ if (digitalRead(10) == LOW){Serial.println ("C01");} //sets gear handle up
+ if (digitalRead(11) == LOW){Serial.println ("C02");} //sets gear handle down
+        
+        if (digitalRead(7) == HIGH){Serial.println ("C441");} //Taxi light on
+        else {Serial.println ("C440");}//Taxi light off
+        
+        if (digitalRead(8) == HIGH){Serial.println ("C431");}//Landing light on
+        else {Serial.println ("C430");}//Landing light off
+        
+        if (digitalRead(9) == HIGH){Serial.println ("A431");}//Avionics on
+        else {Serial.println ("A430");}//Landing light off
+        
+        if (digitalRead(6) == LOW){Serial.println ("E18");}//Master on
+        else {Serial.println ("E17");}//Master off
+  
+ if (Serial.available())
+ {//checks the serial read buffer
+    CodeIn = getChar();// reads one charactor via it's own routine (char getChar)
+    if (CodeIn == '?') {QUESTION();}// The first identifier is "?", goto QUESTION void
+ }
+
+}
+
+void QUESTION(){    // The first identifier was "?"
+CodeIn = getChar(); // Get the second identifier
+  switch(CodeIn) {// Now lets find what to do with it
+    case 'Y': // found the second identifier (the "Gear simple")
+       gearSimple = "";
+      gearSimple += getChar();// get first charactor (Nose gear)
+      if (gearSimple == "2"){digitalWrite(2, HIGH);}else{digitalWrite(2, LOW);}
+      if (gearSimple == "1"){digitalWrite(5, HIGH);}else{digitalWrite(5, LOW);}
+    break;
+     }
+}// end of question void
+
+char getChar()// Get a character from the serial buffer
+{
+  while(Serial.available() == 0);// wait for data
+  return((char)Serial.read());// Thanks Doug
+}// end of getchar void. 
+
+```
