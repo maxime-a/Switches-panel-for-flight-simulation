@@ -8,7 +8,7 @@ I use an arduino undo to communicate via serial com port to a software "Link2fs"
 
 ## Code
 
-```
+```C++
 int CodeIn;
 String gearSimple;
 
