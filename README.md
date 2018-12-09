@@ -1,7 +1,7 @@
 # Switches panel for flight simulation
 Proof of concept to be developped, master, avionics, lights and landing gear switches with rgb led for landing gear position.
 
-I use an arduino undo to communicate via serial com port to a software "Link2fs" which allow me to extract data from microsoft flight simulator and send inputs to the simulator. 
+I use an arduino uno to communicate via serial com port to a software "Link2fs" which allow me to extract data from microsoft flight simulator and send inputs to the simulator. 
 
 
 ## Schematics
